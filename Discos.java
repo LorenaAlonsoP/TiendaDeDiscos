@@ -8,14 +8,16 @@ public class Discos
     private String nombreDisco;
     private String interprete;
     private int numCanciones;
+    private int codigoProducto;
     /**
      * Constructor for objects of class Discos
      */
-    public Discos(String nombreDisco, String interprete, int numCanciones)
+    public Discos(String nombreDisco, String interprete, int numCanciones, int codigoProducto)
     {
         this.nombreDisco = nombreDisco;
         this.interprete = interprete;
         this.numCanciones = numCanciones;
+        this.codigoProducto = codigoProducto;
     }
 
     /**
@@ -47,8 +49,16 @@ public class Discos
      */
     public String getDatosDisco() 
     {
-        String aDevolver = nombreDisco + interprete + "Este disco contiene este número de canciones: " + numCanciones;
+        String aDevolver = nombreDisco + " - " + interprete + " - " + "Este disco contiene este número de canciones: " + numCanciones;
         return aDevolver;
+    }
+    
+    /**
+     * Devuelve el numero de canciones que contiene el disco 
+     */
+    public int getcodProducto()
+    {
+        return codigoProducto;
     }
     
     /**
