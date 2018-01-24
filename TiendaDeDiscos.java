@@ -38,4 +38,21 @@ public class TiendaDeDiscos
             numeroDeDisco++;
         }
     }
+    
+    /**
+     * Mostrar discos por numero de canciones
+     */
+    public void mostrarDiscoPorNumCanciones() 
+    {
+        if(discosDeMusica.size() > 0) {
+            Disco masNumCanciones = discosDeMusica.get(0);
+            for(Disco nuevoDisco : discosDeMusica) {
+                if(nuevoDisco.getNumDisco() >= masNumCanciones.getNumDisco()) {
+                    masNumCanciones = nuevoDisco;
+                }
+            }
+            System.out.println(masNumCanciones.getDatosDisco());
+        }
+    }
+    
 }
