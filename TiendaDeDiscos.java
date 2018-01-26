@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 /**
  * Write a description of class Discos here.
  *
@@ -39,20 +40,85 @@ public class TiendaDeDiscos
         }
     }
     
+    
+    
     /**
-     * Mostrar discos por numero de canciones
+     * Listar canciones de mayor a menor numero de canciones y eliminar la que mayor num
+     * de canciones
      */
-    public void mostrarDiscoPorNumCanciones() 
+    public ArrayList<Disco> localizaMayorLoImprimeYLoBorra(ArrayList<Disco> coleccion)
     {
-        if(discosDeMusica.size() > 0) {
-            Disco masNumCanciones = discosDeMusica.get(0);
-            for(Disco nuevoDisco : discosDeMusica) {
-                if(nuevoDisco.getNumDisco() >= masNumCanciones.getNumDisco()) {
-                    masNumCanciones = nuevoDisco;
+        ArrayList<Disco> discoMayorNumCanciones = new ArrayList<Disco>();
+        double numCancionesMax = 0;
+        int contador = 0;
+        if(coleccion.size() > 0) {
+            for(Disco nuevoDisco : coleccion) {
+                if(nuevoDisco.getNumDisco() > numCancionesMax) {
+                    numCancionesMax = nuevoDisco.getNumDisco();
                 }
             }
-            System.out.println(masNumCanciones.getDatosDisco());
+            
+            while(contador < coleccion.size()) {
+                if(coleccion.get(contador).getNumDisco() == numCancionesMax) {
+                    discoMayorNumCanciones.add(coleccion.get(contador));
+                    coleccion.remove(coleccion.get(contador));
+                    contador -= 1;
+                }
+                contador += 1;
+            }
+        }
+        return discoMayorNumCanciones;
+    }
+    
+    /**
+     * Ordena por mayor num de canciones de la tienda
+     */
+    public void mostrarListaNumCancionesMax()
+    {
+        ArrayList<Disco> listaNumCancionesMax = new ArrayList<Disco>();
+        ArrayList<Disco> copiaListaNumCanciones = new ArrayList<Disco>();
+        if(discosDeMusica.size() > 0) {
+            copiaListaNumCanciones.addAll(discosDeMusica);
+            while(copiaListaNumCanciones.size() != 0) {
+                listaNumCancionesMax.addAll(localizaMayorLoImprimeYLoBorra(copiaListaNumCanciones));
+            }
+            for(Disco nuevoDisco : listaNumCancionesMax) {
+                System.out.println(nuevoDisco.getDatosDisco());
+            }
         }
     }
+    
+    /**
+     * Modificar al menos una de las caracterisiticas del objeto con el numero identificativo
+     * indicado por el usuario.
+     */
+    public void cambiarNombreDisco(int codigoDisco, String nuevoNombreDisco) 
+    {
+        if(codigoDisco >= 0 && discosDeMusica.size() >= codigoDisco) {
+            Disco nuevoDisco = discosDeMusica.get(codigoDisco - 1);
+            nuevoDisco.setNombreDisco(nuevoNombreDisco);
+        }
+    }
+
+    /**
+     * Eliminar Disco 
+     */
+    public void eliminarDiscoPorNumCanciones(int numCanciones)
+    {
+        Iterator<Disco> iteration = discosDeMusica.iterator();
+        while(iteration.hasNext()) {
+            Disco it = iteration.next();
+            int numeroCanciones = it.getNumDisco();
+            if(numeroCanciones == numCanciones) {
+                iteration.remove();
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
     
 }
