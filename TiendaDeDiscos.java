@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 /**
  * Write a description of class Discos here.
  *
@@ -12,10 +15,25 @@ public class TiendaDeDiscos
     /**
      * Constructor for objects of class TiendaDeDiscos
      */
-    public TiendaDeDiscos()
+    public TiendaDeDiscos(String archivosExistentes)
     {
         discosDeMusica = new ArrayList<Disco>();
         codigoDisco = 01;
+        try {
+            File archivo = new File(archivosExistentes);
+            Scanner sc = new Scanner(archivo);
+            while (sc.hasNextLine()) {
+                String[] archivoDisco = sc.nextLine().split(" # ");
+                String nombreDisco = archivoDisco[0];
+                String interprete = archivoDisco[1];
+                int numCanciones = Integer.parseInt(archivoDisco[2]);
+                addDisco(nombreDisco, interprete, numCanciones);
+            }
+            sc.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     
     /**
